@@ -6,7 +6,7 @@ export default function Home() {
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
         <h1 className="text-4xl font-bold">Gallery Guess</h1>
         <p className="text-lg text-center sm:text-left">
-          Get ready to test your knowledge of art history! In this game, you'll
+          Get ready to test your knowledge of art history! In this game, you&apos;ll
           be shown a series of paintings and asked to identify the artist.
         </p>
         <a
