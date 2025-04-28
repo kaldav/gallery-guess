@@ -16,7 +16,7 @@ type AuthContextType = {
     error: Error | null;
     data: { user: User | null; session: Session | null } | null;
   }>;
-  signOut: () => Promise<void>;
+  signOut: () => Promise<{ error: Error | null; }>;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
