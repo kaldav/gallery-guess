@@ -12,7 +12,7 @@ export default function Home() {
         <h1 className="text-4xl font-bold mb-6">Gallery Guess</h1>
         
         <p className="text-lg mb-8 text-gray-600">
-          Test your art knowledge with paintings from the Metropolitan Museum of Art's collection. 
+          Test your art knowledge with paintings from the Metropolitan Museum of Art&apos;s collection. 
           Identify famous artworks, climb the levels, and compete for high scores!
         </p>
         

@@ -57,7 +57,7 @@ export async function getMultiplePaintings(count: number = 4): Promise<MetPainti
 // Get a set of quiz options with one correct answer and others as distractors
 export async function getQuizOptions(correctPainting: MetPainting, totalOptions: number = 4): Promise<string[]> {
   // First, get some random paintings for distractors
-  let distractors: MetPainting[] = [];
+  const distractors: MetPainting[] = [];
   
   while (distractors.length < totalOptions - 1) {
     try {

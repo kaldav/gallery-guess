@@ -76,7 +76,7 @@ export default function AuthForm({ onSubmit, submitText, isLogin = false }: Auth
 
       {isLogin ? (
         <p className="text-sm text-center text-gray-600">
-          Don't have an account?{' '}
+          Don&apos;t have an account?{' '}
           <a href="/register" className="text-indigo-600 hover:text-indigo-500">
             Register
           </a>

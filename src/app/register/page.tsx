@@ -24,9 +24,10 @@ export default function Register() {
       }
       // Instead of redirecting, set the registration success state
       setRegistrationSuccess(true);
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       console.error('Registration error:', error);
-      alert(error.message);
+      const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
+      alert(errorMessage);
     }
   };
 

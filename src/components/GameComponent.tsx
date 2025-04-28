@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import Image from 'next/image';
 import { useAuth } from '@/context/AuthContext';
 import { MetPainting, getRandomPainting, getQuizOptions } from '@/utils/metApi';
 import { supabase } from '@/utils/supabase';
@@ -28,7 +29,7 @@ export default function GameComponent() {
     
     try {
       await loadNextPainting();
-    } catch (err) {
+    } catch {
       setError('Failed to start game. Please try again.');
       setGameStarted(false);
       setLoading(false);
@@ -49,7 +50,7 @@ export default function GameComponent() {
       setOptions(quizOptions);
       
       setLoading(false);
-    } catch (err) {
+    } catch {
       setError('Failed to load painting. Please try again.');
       setLoading(false);
     }
@@ -128,11 +129,13 @@ export default function GameComponent() {
           
           {currentPainting && (
             <div className="mb-8">
-              <div className="aspect-w-16 aspect-h-9 mb-4">
-                <img
+              <div className="aspect-w-16 aspect-h-9 mb-4 relative h-96">
+                <Image
                   src={currentPainting.primaryImage}
                   alt="Mystery painting"
-                  className="object-contain w-full h-96 rounded-lg shadow-lg"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 768px"
+                  className="object-contain rounded-lg shadow-lg"
                 />
               </div>
               
