@@ -19,6 +19,14 @@ export default function Header() {
               {user ? (
                 <>
                   <li>
+                    <Link 
+                      href="/game"
+                      className="text-blue-600 hover:underline"
+                    >
+                      Play Game
+                    </Link>
+                  </li>
+                  <li>
                     <span className="text-gray-600">
                       {user.email}
                     </span>

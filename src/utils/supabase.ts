@@ -6,12 +6,30 @@ export const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
 );
 
-// Type-safe database types could be defined and exported here
-// For example:
-// export type Database = {
-//   public: {
-//     Tables: {
-//       // Define your tables here
-//     }
-//   }
-// }
+// Database types for type safety
+export type Database = {
+  public: {
+    Tables: {
+      game_scores: {
+        Row: {
+          id: string;
+          user_id: string;
+          score: number;
+          played_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          score: number;
+          played_at?: string;
+        };
+        Update: {
+          id?: string;
+          user_id?: string;
+          score?: number;
+          played_at?: string;
+        };
+      };
+    };
+  };
+};
