@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import AuthForm from '@/components/AuthForm';
 import { useAuth } from '@/context/AuthContext';
@@ -8,6 +8,7 @@ import { useAuth } from '@/context/AuthContext';
 export default function Register() {
   const router = useRouter();
   const { signUp, user, isLoading } = useAuth();
+  const [registrationSuccess, setRegistrationSuccess] = useState(false);
   
   useEffect(() => {
     if (user && !isLoading) {
@@ -16,13 +17,17 @@ export default function Register() {
   }, [user, isLoading, router]);
 
   const handleRegister = async (email: string, password: string) => {
-    const { error } = await signUp(email, password);
-    if (error) {
-      throw new Error(error.message);
+    try {
+      const { error } = await signUp(email, password);
+      if (error) {
+        throw new Error(error.message);
+      }
+      // Instead of redirecting, set the registration success state
+      setRegistrationSuccess(true);
+    } catch (error: any) {
+      console.error('Registration error:', error);
+      alert(error.message);
     }
-    // After successful signup, the user will either be automatically logged in
-    // or need to verify their email (depending on your Supabase settings)
-    router.push('/login?message=Please%20check%20your%20email%20to%20verify%20your%20account');
   };
 
   if (isLoading) {
@@ -37,13 +42,34 @@ export default function Register() {
             Create your account
           </h2>
         </div>
-        <div className="mt-8">
-          <AuthForm 
-            onSubmit={handleRegister}
-            submitText="Sign Up"
-            isLogin={false}
-          />
-        </div>
+        
+        {registrationSuccess ? (
+          <div className="mt-8 text-center">
+            <div className="rounded-md bg-green-50 p-4 mb-4">
+              <div className="flex">
+                <div className="flex-shrink-0">
+                  <svg className="h-5 w-5 text-green-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <div className="ml-3">
+                  <h3 className="text-sm font-medium text-green-800">Registration Successful</h3>
+                  <div className="mt-2 text-sm text-green-700">
+                    <p>Please check your email to confirm your account before logging in.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="mt-8">
+            <AuthForm 
+              onSubmit={handleRegister}
+              submitText="Sign Up"
+              isLogin={false}
+            />
+          </div>
+        )}
       </div>
     </div>
   );
