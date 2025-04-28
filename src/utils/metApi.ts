@@ -54,6 +54,11 @@ export async function getMultiplePaintings(count: number = 4): Promise<MetPainti
   return paintings;
 }
 
+// Combines artist, title and year into a single string
+export function formatPaintingDetails(painting: MetPainting): string {
+  return `${painting.artistDisplayName} - "${painting.title}" (${painting.objectDate})`;
+}
+
 // Get a set of quiz options with one correct answer and others as distractors
 export async function getQuizOptions(correctPainting: MetPainting, totalOptions: number = 4): Promise<string[]> {
   // First, get some random paintings for distractors
@@ -73,8 +78,8 @@ export async function getQuizOptions(correctPainting: MetPainting, totalOptions:
   
   // Combine all options and shuffle
   const options = [
-    correctPainting.title,
-    ...distractors.map(p => p.title)
+    formatPaintingDetails(correctPainting),
+    ...distractors.map(p => formatPaintingDetails(p))
   ];
   
   // Shuffle the options

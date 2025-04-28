@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { useAuth } from '@/context/AuthContext';
-import { MetPainting, getRandomPainting, getQuizOptions } from '@/utils/metApi';
+import { MetPainting, getRandomPainting, getQuizOptions, formatPaintingDetails } from '@/utils/metApi';
 import { supabase } from '@/utils/supabase';
 
 export default function GameComponent() {
@@ -61,7 +61,8 @@ export default function GameComponent() {
     if (selectedOption || !currentPainting) return;
     
     setSelectedOption(option);
-    const correct = option === currentPainting.title;
+    const correctAnswer = formatPaintingDetails(currentPainting);
+    const correct = option === correctAnswer;
     setIsCorrect(correct);
     
     if (correct) {
@@ -97,7 +98,7 @@ export default function GameComponent() {
         <div className="text-center">
           <h1 className="text-3xl font-bold mb-6">Gallery Guess</h1>
           <p className="mb-6 text-gray-600">
-            Test your art knowledge! Guess the name of the painting to advance to the next level.
+            Test your art knowledge! Guess the artist, name, and year of the painting to advance to the next level.
           </p>
           <button
             onClick={startGame}
@@ -139,13 +140,7 @@ export default function GameComponent() {
                 />
               </div>
               
-              <div className="text-sm text-gray-500 mb-4">
-                <p>Date: {currentPainting.objectDate}</p>
-                {/* Only show artist after game over */}
-                {gameOver && <p>Artist: {currentPainting.artistDisplayName}</p>}
-              </div>
-              
-              <h3 className="text-xl font-semibold mb-4">What is the name of this painting?</h3>
+              <h3 className="text-xl font-semibold mb-4">Who created this artwork, what is it called, and when was it made?</h3>
               
               <div className="grid gap-3">
                 {options.map((option, index) => (
@@ -155,10 +150,10 @@ export default function GameComponent() {
                     disabled={selectedOption !== null}
                     className={`p-3 rounded-lg border text-left ${
                       selectedOption === option
-                        ? option === currentPainting.title
+                        ? option === formatPaintingDetails(currentPainting)
                           ? 'bg-green-100 border-green-500'
                           : 'bg-red-100 border-red-500'
-                        : selectedOption && option === currentPainting.title
+                        : selectedOption && option === formatPaintingDetails(currentPainting)
                         ? 'bg-green-100 border-green-500'
                         : 'border-gray-300 hover:bg-gray-50'
                     }`}
@@ -176,7 +171,7 @@ export default function GameComponent() {
               
               {isCorrect === false && (
                 <div className="mt-4 p-3 bg-red-100 text-red-800 rounded-lg">
-                  Incorrect! The correct answer was {currentPainting.title}.
+                  Incorrect! The correct answer was {formatPaintingDetails(currentPainting)}.
                 </div>
               )}
               
