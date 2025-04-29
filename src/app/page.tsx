@@ -3,6 +3,7 @@
 import { useAuth } from "@/context/AuthContext";
 import Link from "next/link";
 import Image from "next/image";
+import Highscores from "@/components/Highscores";
 
 export default function Home() {
   const { user } = useAuth();
@@ -59,6 +60,11 @@ export default function Home() {
               </li>
             </ul>
           </div>
+        </div>
+        
+        {/* Highscores Section */}
+        <div className="mb-12">
+          <Highscores />
         </div>
       </div>
     </main>
