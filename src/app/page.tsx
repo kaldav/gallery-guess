@@ -2,19 +2,40 @@
 
 import { useAuth } from "@/context/AuthContext";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Home() {
   const { user } = useAuth();
 
   return (
     <main className="container mx-auto px-4 py-12">
-      <div className="text-center max-w-3xl mx-auto">
-        <h1 className="text-4xl font-bold mb-6">Gallery Guess</h1>
-        
-        <p className="text-lg mb-8 text-gray-600">
-          Test your art knowledge with paintings from the Metropolitan Museum of Art&apos;s collection. 
-          Identify famous artworks, climb the levels, and compete for high scores!
-        </p>
+      <div className="text-center max-w-4xl mx-auto">
+        {/* Cover Image Hero Section */}
+        <div className="relative rounded-xl overflow-hidden mb-12 shadow-xl">
+          <div className="aspect-[16/9] relative">
+            <Image 
+              src="/cover-image.svg"
+              alt="Gallery Guess - Test your art knowledge"
+              fill
+              priority
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 via-blue-800/50 to-transparent flex flex-col items-start justify-center p-8 md:p-12">
+              <div className="max-w-xl text-left">
+                <h1 className="text-4xl md:text-5xl font-bold mb-4 text-white drop-shadow-lg">Gallery Guess</h1>
+                <p className="text-lg md:text-xl mb-6 text-white/90 drop-shadow">
+                  Test your knowledge of the world's greatest artworks from the Metropolitan Museum collection
+                </p>
+                <Link 
+                  href={user ? "/game" : "/login"} 
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg text-lg font-medium inline-block transition-all duration-200 hover:scale-105"
+                >
+                  {user ? "Start Playing" : "Sign In to Play"}
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
         
         <div className="mb-12">
           <div className="bg-gray-50 rounded-lg p-6 shadow-md mb-8">
@@ -38,15 +59,6 @@ export default function Home() {
               </li>
             </ul>
           </div>
-        </div>
-        
-        <div className="flex justify-center">
-          <Link 
-            href={user ? "/game" : "/login"} 
-            className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg text-lg font-medium"
-          >
-            {user ? "Start Playing" : "Sign In to Play"}
-          </Link>
         </div>
       </div>
     </main>
