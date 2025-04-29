@@ -28,7 +28,7 @@ export default function Header() {
                   </li>
                   <li>
                     <span className="text-gray-600">
-                      {user.email}
+                      {user.profile?.nickname || user.email}
                     </span>
                   </li>
                   <li>
@@ -53,9 +53,9 @@ export default function Header() {
                   <li>
                     <Link 
                       href="/register" 
-                      className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"
+                      className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
                     >
-                      Register
+                      Sign up
                     </Link>
                   </li>
                 </>

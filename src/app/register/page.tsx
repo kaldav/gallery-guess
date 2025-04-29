@@ -16,18 +16,24 @@ export default function Register() {
     }
   }, [user, isLoading, router]);
 
-  const handleRegister = async (email: string, password: string) => {
+  const handleRegister = async (email: string, password: string, nickname?: string) => {
     try {
-      const { error } = await signUp(email, password);
+      // Make sure nickname is provided
+      if (!nickname) {
+        throw new Error('Nickname is required');
+      }
+
+      const { error } = await signUp(email, password, nickname);
       if (error) {
         throw new Error(error.message);
       }
       // Instead of redirecting, set the registration success state
       setRegistrationSuccess(true);
-    } catch (error: Error | unknown) {
+    } catch (error: unknown) {
       console.error('Registration error:', error);
       const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
       alert(errorMessage);
+      throw error;
     }
   };
 
