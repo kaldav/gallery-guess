@@ -40,7 +40,7 @@ export default function AuthForm({ onSubmit, submitText, isLogin = false }: Auth
         } else {
           setNicknameError(null);
         }
-      } catch (error) {
+      } catch {
         setNicknameError('Error checking nickname availability');
       } finally {
         setIsCheckingNickname(false);
@@ -157,7 +157,7 @@ export default function AuthForm({ onSubmit, submitText, isLogin = false }: Auth
       <button
         type="submit"
         className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-        disabled={loading || (!isLogin && nickname && (isCheckingNickname || !isNicknameAvailable))}
+        disabled={loading || (!isLogin && !!nickname && (isCheckingNickname || isNicknameAvailable === false))}
       >
         {loading ? 'Loading...' : submitText}
       </button>

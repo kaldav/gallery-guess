@@ -49,17 +49,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return null;
   };
 
-  // Function to update user with profile information
-  const updateUserWithProfile = async (currentUser: User) => {
-    const profile = await fetchUserProfile(currentUser.id);
-    const userWithProfile: AuthUser = {
-      ...currentUser,
-      profile: profile ? { nickname: profile.nickname } : undefined
-    };
-    return userWithProfile;
-  };
-
   useEffect(() => {
+    // Function to update user with profile information (moved inside useEffect)
+    const updateUserWithProfile = async (currentUser: User) => {
+      const profile = await fetchUserProfile(currentUser.id);
+      const userWithProfile: AuthUser = {
+        ...currentUser,
+        profile: profile ? { nickname: profile.nickname } : undefined
+      };
+      return userWithProfile;
+    };
+
     // Get initial session
     const getSession = async () => {
       setIsLoading(true);
@@ -95,7 +95,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return () => {
       subscription.unsubscribe();
     };
-  }, []);
+  }, []); // Empty dependency array since updateUserWithProfile is now inside the effect
 
   // Check if nickname already exists
   const checkNicknameUniqueness = async (nickname: string): Promise<boolean> => {

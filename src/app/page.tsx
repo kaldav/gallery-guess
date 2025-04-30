@@ -25,7 +25,7 @@ export default function Home() {
               <div className="max-w-xl text-left">
                 <h1 className="text-4xl md:text-5xl font-bold mb-4 text-white drop-shadow-lg">Gallery Guess</h1>
                 <p className="text-lg md:text-xl mb-6 text-white/90 drop-shadow">
-                  Test your knowledge of the world's greatest artworks from the Metropolitan Museum collection
+                  Test your knowledge of the world&apos;s greatest artworks from the Metropolitan Museum collection
                 </p>
                 <Link 
                   href={user ? "/game" : "/login"} 
