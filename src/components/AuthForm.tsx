@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
+import Link from 'next/link';
 
 interface AuthFormProps {
   onSubmit: (email: string, password: string, nickname?: string) => Promise<void>;
@@ -165,16 +166,16 @@ export default function AuthForm({ onSubmit, submitText, isLogin = false }: Auth
       {isLogin ? (
         <p className="text-sm text-center text-gray-600">
           Don&apos;t have an account?{' '}
-          <a href="/register" className="text-indigo-600 hover:text-indigo-500">
+          <Link href="/register" className="text-indigo-600 hover:text-indigo-500">
             Register
-          </a>
+          </Link>
         </p>
       ) : (
         <p className="text-sm text-center text-gray-600">
           Already have an account?{' '}
-          <a href="/login" className="text-indigo-600 hover:text-indigo-500">
+          <Link href="/login" className="text-indigo-600 hover:text-indigo-500">
             Login
-          </a>
+          </Link>
         </p>
       )}
     </form>

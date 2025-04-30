@@ -4,6 +4,7 @@ import { useAuth } from "@/context/AuthContext";
 import Link from "next/link";
 import Image from "next/image";
 import Highscores from "@/components/Highscores";
+import { getPath } from "@/utils/path";
 
 export default function Home() {
   const { user } = useAuth();
@@ -15,7 +16,7 @@ export default function Home() {
         <div className="relative rounded-xl overflow-hidden mb-12 shadow-xl">
           <div className="aspect-[16/9] relative">
             <Image 
-              src="/cover-image.svg"
+              src={getPath("/cover-image.svg")}
               alt="Gallery Guess - Test your art knowledge"
               fill
               priority
