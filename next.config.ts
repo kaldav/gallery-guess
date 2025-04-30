@@ -8,6 +8,11 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
+  trailingSlash: true,
+  // Disable React Server Components data fetching behavior
+  skipTrailingSlashRedirect: true,
+  // Fixed assetPrefix to use proper URL format
+  assetPrefix: process.env.NODE_ENV === 'production' ? '/gallery-guess' : '',
 };
 
 export default nextConfig;
